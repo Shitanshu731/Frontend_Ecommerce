@@ -1,11 +1,48 @@
-import React from 'react'
+import { Link } from "react-router-dom";
+
 
 const Home = () => {
-  return (
-    <div className='text-red-900'>
-      Home
-    </div>
-  )
-}
+  // const { data, isLoading, isError } = useLatestProductsQuery("");
 
-export default Home
+
+  // const addToCartHandler = (cartItem: CartItem) => {
+  //   if (cartItem.stock < 1) return toast.error("Out of Stock");
+  //   dispatch(addToCart(cartItem));
+  //   toast.success("Added to cart");
+  // };
+
+  // if (isError) toast.error("Cannot Fetch the Products");
+
+  return (
+    <div className="home">
+      <section></section>
+
+      <h1>
+        Latest Products
+        <Link to="/search" className="findmore">
+          More
+        </Link>
+      </h1>
+
+      <main>
+        {/* {isLoading ? (
+          <Skeleton width="80vw" />
+        ) : (
+          data?.products.map((i) => (
+            <ProductCard
+              key={i._id}
+              productId={i._id}
+              name={i.name}
+              price={i.price}
+              stock={i.stock}
+              handler={addToCartHandler}
+              photo={i.photo}
+            />
+          ))
+        )} */}
+      </main>
+    </div>
+  );
+};
+
+export default Home;
