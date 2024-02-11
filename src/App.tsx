@@ -7,6 +7,7 @@ import Header from './components/Header'
 const Home = lazy(() => import("./pages/Home"))
 const Search = lazy(() => import("./pages/Search"))
 const Cart = lazy(() => import("./pages/Cart"))
+const Shipping = lazy(() => import("./pages/shipping"))
 
 
 // AdminBoard Routes importng
@@ -40,6 +41,7 @@ const App = () => {
         <Route path = "/" element ={<Home />} /> 
         <Route path = "/search" element ={<Search />} />
         <Route path = "/cart" element ={<Cart />} />
+        <Route path = "/shipping" element ={<Shipping />} />
 
 
         {/* Admin Routes */}
