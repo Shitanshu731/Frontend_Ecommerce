@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userExists, userNotExists } from './redux/reducer/userReducer'
 import { auth } from './firebase'
 import { userReducerInitalState } from './types/reducer-types'
+import ProtectedRoute from './components/protected-route'
 
 const Home = lazy(() => import("./pages/Home"))
 const Search = lazy(() => import("./pages/Search"))
@@ -66,7 +67,7 @@ const dispatch = useDispatch();
         <Route path = "/search" element ={<Search />} />
         <Route path = "/cart" element ={<Cart />} />
         <Route path = "/shipping" element ={<Shipping />} />
-        <Route path = "/login" element ={<Login />} />
+        <Route path = "/login" element ={<ProtectedRoute isAuthenticated ={user ? false : true} ><Login /></ProtectedRoute>} />
         <Route path = "/orders" element ={<Orders />} />
 
 
