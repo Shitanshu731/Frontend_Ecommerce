@@ -1,9 +1,14 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useDebugValue, useEffect } from 'react'
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
 import {lazy} from "react"
 import Loader from './components/Loader'
 import Header from './components/Header'
 import {Toaster} from "react-hot-toast"
+import { onAuthStateChanged } from 'firebase/auth'
+import { getUser } from './redux/api/userApi'
+import { useDispatch } from 'react-redux'
+import { userExists, userNotExists } from './redux/reducer/userReducer'
+import { auth } from './firebase'
 
 const Home = lazy(() => import("./pages/Home"))
 const Search = lazy(() => import("./pages/Search"))
@@ -35,6 +40,19 @@ const TransactionManagement = lazy(
 
 
 const App = () => {
+const dispatch = useDispatch();
+  useEffect(() => {
+    onAuthStateChanged(auth,async(user) => {
+      if(user){
+        const data = await getUser(user.uid);
+        dispatch(userExists(data.user))
+      }
+      else{
+        dispatch(userNotExists())
+      }
+    })
+  })
+
   return (
     <Router>
       {/* Header */}
