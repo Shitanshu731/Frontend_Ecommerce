@@ -1,4 +1,4 @@
-import React, { Suspense, useDebugValue, useEffect } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
 import {lazy} from "react"
 import Loader from './components/Loader'
