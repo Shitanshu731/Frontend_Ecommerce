@@ -66,10 +66,12 @@ const dispatch = useDispatch();
         <Route path = "/" element ={<Home />} /> 
         <Route path = "/search" element ={<Search />} />
         <Route path = "/cart" element ={<Cart />} />
-        <Route path = "/shipping" element ={<Shipping />} />
         <Route path = "/login" element ={<ProtectedRoute isAuthenticated ={user ? false : true} ><Login /></ProtectedRoute>} />
+        <Route element ={<ProtectedRoute isAuthenticated={user? true : false} />}>
+        <Route path = "/shipping" element ={<Shipping />} />
+        
         <Route path = "/orders" element ={<Orders />} />
-
+        </Route>
 
         {/* Admin Routes */}
 
