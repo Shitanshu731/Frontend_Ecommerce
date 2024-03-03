@@ -76,9 +76,9 @@ const dispatch = useDispatch();
         {/* Admin Routes */}
 
         <Route
-  // element={
-  //   <ProtectedRoute isAuthenticated={true} adminRoute={true} isAdmin={true} />
-  // }
+  element={
+    <ProtectedRoute isAuthenticated={user? true : false} admin={user?.role === "admin" ? true :false} adminOnly={true} />
+  }
 >
   <Route path="/admin/dashboard" element={<Dashboard />} />
   <Route path="/admin/product" element={<Products />} />
