@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { userReducerInitalState } from "../../types/reducer-types";
 
 
-const initialState = {
-
+const initialState:userReducerInitalState= {
+    user: null,
+    loading : true
 }
 
 export const userReducer = createSlice({
