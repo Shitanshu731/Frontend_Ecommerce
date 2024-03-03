@@ -5,7 +5,7 @@ import { User } from "../../types/types";
 
 const initialState:userReducerInitalState= {
     user: null,
-    loading : true
+    loading : false
 }
 
 export const userReducer = createSlice({

@@ -6,9 +6,10 @@ import Header from './components/Header'
 import {Toaster} from "react-hot-toast"
 import { onAuthStateChanged } from 'firebase/auth'
 import { getUser } from './redux/api/userApi'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { userExists, userNotExists } from './redux/reducer/userReducer'
 import { auth } from './firebase'
+import { userReducerInitalState } from './types/reducer-types'
 
 const Home = lazy(() => import("./pages/Home"))
 const Search = lazy(() => import("./pages/Search"))
@@ -40,6 +41,7 @@ const TransactionManagement = lazy(
 
 
 const App = () => {
+  const {user, loading} = useSelector((state: {userReducer : userReducerInitalState}) => state.userReducer)
 const dispatch = useDispatch();
   useEffect(() => {
     onAuthStateChanged(auth,async(user) => {
@@ -53,10 +55,11 @@ const dispatch = useDispatch();
     })
   })
 
-  return (
+  return loading? <Loader /> :
+  (
     <Router>
       {/* Header */}
-      <Header />
+      <Header user ={user} />
       <Suspense fallback = {<Loader />}>
       <Routes>
         <Route path = "/" element ={<Home />} /> 
