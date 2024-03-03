@@ -9,11 +9,11 @@ export const productAPI = createApi({
     baseQuery : fetchBaseQuery({baseUrl :`http://localhost:3000/api/v1/product/`}),
     endpoints : (builder) => ({
         latestProduct : builder.query<AllProductResponse, string>({
-            query : () => "latest"
+            query : () => "latestProduct"
     })
     })
 })
 
 
 
-export const { useLatestProductsQuery } = productAPI 
+export const { useLatestProductQuery } = productAPI 

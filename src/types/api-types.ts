@@ -10,5 +10,5 @@ export type UserResponse = {
   };
 export type AllProductResponse = {
     success: boolean;
-    products: Product[];
+    product: Product[];
   };
