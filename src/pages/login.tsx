@@ -3,15 +3,27 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { auth } from "../firebase.ts";
+import { useLoginMutation } from "../redux/api/userApi.ts";
 
 const Login = () => {
   const [gender, setGender] = useState("");
   const [date, setDate] = useState("");
 
+  const [login] = useLoginMutation();
+
   const loginHandler = async () => {
     try {
       const provider = new GoogleAuthProvider();
       const { user } = await signInWithPopup(auth, provider);
+      await login({
+        name :"Aasdsdasd",
+        email : "asdasd",
+        photo : "Asdasd",
+        gender,
+        role : "user",
+        dob : date,
+        _id : "asdasd"
+      });
       console.log(user);
     } catch (error) {
       console.error("Sign In Failed:", error); // Log the error for debugging

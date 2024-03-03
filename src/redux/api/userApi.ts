@@ -1,15 +1,19 @@
 import {createApi, fetchBaseQuery} from  "@reduxjs/toolkit/query/react"
-import { server } from "../store"
+// import { server } from "../store"
+import { MessageResponse } from "../../types/api-types"
+import { User } from "firebase/auth"
 
 
-export const userApi = createApi({
+export const userAPI = createApi({
     reducerPath : "userApi",
-    baseQuery : fetchBaseQuery({baseUrl :`${server}/api/v1/user/`}),
+    baseQuery : fetchBaseQuery({baseUrl :`${import.meta.env.VITE_SERVER}/api/v1/user/`}),
     endpoints : (builder) => ({
-        login : builder.mutation<string, number>({query : (user) => ({
+        login : builder.mutation<MessageResponse, User>({query : (user) => ({
             url : "new",
             method : "POST",
             body : user,
         })})
     })
 })
+
+export const {useLoginMutation} = userAPI 
