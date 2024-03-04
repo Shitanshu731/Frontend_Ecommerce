@@ -12,3 +12,10 @@ export type AllProductResponse = {
     success: boolean;
     product: Product[];
   };
+  export type CustomError =  {
+    status : number;
+    data : {
+      message: string;
+      success : boolean;
+    };
+  };
