@@ -8,7 +8,6 @@ type ProductsProps = {
   stock: number;
   handler: () => void;
 };
-
 const ProductCard = ({
   productId,
   price,
@@ -19,7 +18,7 @@ const ProductCard = ({
 }: ProductsProps) => {
   return (
     <div className="product-card">
-      <img src={photo} alt={name} />
+      <img src={`http://localhost:3000/${photo}`} alt={name} />
       <p>{name}</p>
       <span>₹{price}</span>
 
