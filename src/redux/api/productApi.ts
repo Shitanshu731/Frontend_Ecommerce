@@ -16,7 +16,16 @@ export const productAPI = createApi({
     }),
     categoriesProducts : builder.query<CategoriesResponse, string>({
     query : () => `categories`
-    })
+    }),
+    searchProducts : builder.query<searchProductResponse, searchProductRequest>({
+        query : ({price,search,sort,category,page}) =>{
+            let base = `all?search=${search}&page=${page}`
+            if(price) base += `&price=${price}`
+            if(category) base += `&category=${category}`
+            if(sort) base += `&sort=${sort}`
+            return base
+        }
+        })
     })
 })
 
