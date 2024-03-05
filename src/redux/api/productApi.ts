@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from  "@reduxjs/toolkit/query/react"
 // import { server } from "../store"
-import { AllProductResponse, CategoriesResponse } from "../../types/api-types"
+import { AllProductResponse, CategoriesResponse, searchProductRequest, searchProductResponse } from "../../types/api-types"
 
 
 
@@ -32,4 +32,4 @@ export const productAPI = createApi({
 
 
 
-export const { useLatestProductQuery,useAllProductsQuery,useCategoriesProductsQuery} = productAPI 
+export const { useLatestProductQuery,useAllProductsQuery,useCategoriesProductsQuery,useSearchProductsQuery} = productAPI 
