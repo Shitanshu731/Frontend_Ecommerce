@@ -19,3 +19,7 @@ export type AllProductResponse = {
       success : boolean;
     };
   };
+  export type CategoriesResponse = {
+    success: boolean;
+    categories: [];
+  };

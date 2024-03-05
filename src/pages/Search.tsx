@@ -1,6 +1,10 @@
 import { useState } from "react";
 import ProductCard from "../components/Product-card";
+import { useCategoriesProductsQuery } from "../redux/api/productApi";
+import { CustomError } from "../types/api-types";
+import toast from "react-hot-toast";
 const Search = () => {
+  const {data : categoriesResponse,isLoading: loadingCategories,isError,error} = useCategoriesProductsQuery("");
 
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
@@ -9,6 +13,8 @@ const Search = () => {
   const [page, setPage] = useState(1);
   const [productLoading, setproductLoading] = useState(false);
   const addToCartHandler = () => {}
+  if(isError) toast.error((error as CustomError).data.message)
+
   return (
     <div className="product-search-page">
       <aside>
@@ -39,7 +45,13 @@ const Search = () => {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option value="">ALL</option>
+            <option value="all">ALL</option>
+            {
+              !loadingCategories && categoriesResponse?.category.map((i) => (
+                <option key={i} value={i}>{i.toLowerCase()}</option>
+              ))
+            }
+
           </select>
         </div>
       </aside>
