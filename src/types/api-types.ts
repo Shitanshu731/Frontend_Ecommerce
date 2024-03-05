@@ -23,3 +23,8 @@ export type AllProductResponse = {
     success: boolean;
     categories: [];
   };
+  export type searchProductResponse = {
+    success: boolean;
+    product: Product[];
+    totalPage : number;
+  };
