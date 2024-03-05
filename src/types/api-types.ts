@@ -28,3 +28,10 @@ export type AllProductResponse = {
     product: Product[];
     totalPage : number;
   };
+  export type searchProductRequest = {
+    price? : string;
+    category? : string;
+    sort?: string;
+    page?: number;
+    search? : string
+  };
