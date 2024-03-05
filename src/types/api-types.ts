@@ -21,15 +21,15 @@ export type AllProductResponse = {
   };
   export type CategoriesResponse = {
     success: boolean;
-    categories: [];
+    category: [];
   };
   export type searchProductResponse = {
     success: boolean;
-    product: Product[];
+    products: Product[];
     totalPage : number;
   };
   export type searchProductRequest = {
-    price? : string;
+    price? : number;
     category? : string;
     sort?: string;
     page?: number;

@@ -1,17 +1,19 @@
 import { useState } from "react";
 import ProductCard from "../components/Product-card";
-import { useCategoriesProductsQuery } from "../redux/api/productApi";
+import { useCategoriesProductsQuery, useSearchProductsQuery } from "../redux/api/productApi";
 import { CustomError } from "../types/api-types";
 import toast from "react-hot-toast";
 const Search = () => {
   const {data : categoriesResponse,isLoading: loadingCategories,isError,error} = useCategoriesProductsQuery("");
-
+ 
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [maxPrice, setMaxPrice] = useState(100000);
   const [category, setCategory] = useState("");
   const [page, setPage] = useState(1);
   const [productLoading, setproductLoading] = useState(false);
+  const {data : searchedData,isLoading} = useSearchProductsQuery({price: maxPrice,search,page,category,sort})
+  console.log(searchedData)
   const addToCartHandler = () => {}
   if(isError) toast.error((error as CustomError).data.message)
 
@@ -48,7 +50,7 @@ const Search = () => {
             <option value="all">ALL</option>
             {
               !loadingCategories && categoriesResponse?.category.map((i) => (
-                <option key={i} value={i}>{i.toLowerCase()}</option>
+                <option key={i} value={i}>{i}</option>
               ))
             }
 
@@ -68,16 +70,20 @@ const Search = () => {
           "<Skeleton length={10} />"
         ) : (
           <div className="search-product-list">
-              <ProductCard
-                key={756756}
-                productId={5667546756}
-                name="name"
-                price={456}
-                stock={34}
-                handler={addToCartHandler}
-                photo="gfhfghfghfgh"
+            {
+              searchedData?.products.map((i) => (
+                <ProductCard
+                  key={i._id}
+                  productId={i._id}
+                  name={i.name}
+                  price={i.price}
+                  stock={i.stock}
+                  handler={addToCartHandler}
+                  photo={i.photo}
               />
 
+              ))
+            }
           </div>
         )}
 
