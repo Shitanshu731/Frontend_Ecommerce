@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from  "@reduxjs/toolkit/query/react"
 // import { server } from "../store"
-import { AllProductResponse, CategoriesResponse, searchProductRequest, searchProductResponse } from "../../types/api-types"
+import { AllProductResponse, CategoriesResponse, MessageResponse, searchProductRequest, searchProductResponse } from "../../types/api-types"
 
 
 
@@ -25,11 +25,17 @@ export const productAPI = createApi({
             if(sort) base += `&sort=${sort}`
             return base
         }
+        }),
+        newProduct : builder.mutation<MessageResponse,newProductRequest>({
+            query : ({formData,id}) => ({
+                url : `new?id=${id}`,method : "POST", body : formData, 
+            }) 
         })
+
     })
 })
 
 
 
 
-export const { useLatestProductQuery,useAllProductsQuery,useCategoriesProductsQuery,useSearchProductsQuery} = productAPI 
+export const { useLatestProductQuery,useAllProductsQuery,useCategoriesProductsQuery,useSearchProductsQuery,useNewProductMutation} = productAPI 
