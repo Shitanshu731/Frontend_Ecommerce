@@ -14,6 +14,19 @@ const NewProduct = () => {
   const [photoPrev, setPhotoPrev] = useState<string>("");
   const [photo, setPhoto] = useState<File>();
   const [newProduct] = useNewProductMutation();
+  const submitHandler = async (e : FormEvent<HTMLFormElement>) =>{
+    e.preventDefault();
+    if(!name || !price || !category || !stock || !photo) return;
+
+    const formData = new FormData();
+    formData.set("name",name)
+    formData.set("stock",stock.toString())
+    formData.set("price",price.toString())
+    formData.set("photo",photo)
+    formData.set("category",category)
+
+    const res = await newProduct({id : user?._id!, formData})
+  }
   const changeImageHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
 
@@ -35,7 +48,7 @@ const NewProduct = () => {
       <AdminSidebar />
       <main className="product-management">
         <article>
-          <form>
+          <form onSubmit={submitHandler}>
             <h2>New Product</h2>
             <div>
               <label>Name</label>
