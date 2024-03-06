@@ -35,3 +35,7 @@ export type AllProductResponse = {
     page?: number;
     search? : string
   };
+  export type newProductRequest = {
+    id : string;
+    formData : FormData;
+  };
