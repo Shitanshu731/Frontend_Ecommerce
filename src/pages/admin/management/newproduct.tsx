@@ -3,8 +3,11 @@ import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { userReducerInitalState } from "../../../types/reducer-types";
 import { useSelector } from "react-redux";
 import { useNewProductMutation } from "../../../redux/api/productApi";
+import { responseToast } from "../../../utils/features";
+import { useNavigate } from "react-router-dom";
 
 const NewProduct = () => {
+  const navigate = useNavigate();
   const {user, loading} = useSelector((state: {userReducer : userReducerInitalState}) => state.userReducer); 
 
   const [name, setName] = useState<string>("");
@@ -26,6 +29,8 @@ const NewProduct = () => {
     formData.set("category",category)
 
     const res = await newProduct({id : user?._id!, formData})
+
+    responseToast(res,navigate,"/admin/product")
   }
   const changeImageHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
