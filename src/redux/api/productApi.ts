@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from  "@reduxjs/toolkit/query/react"
 // import { server } from "../store"
-import { AllProductResponse, CategoriesResponse, MessageResponse, searchProductRequest, searchProductResponse } from "../../types/api-types"
+import { AllProductResponse, CategoriesResponse, MessageResponse, newProductRequest, searchProductRequest, searchProductResponse } from "../../types/api-types"
 
 
 

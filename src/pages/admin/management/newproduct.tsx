@@ -1,14 +1,19 @@
 import { ChangeEvent, useState } from "react";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
+import { userReducerInitalState } from "../../../types/reducer-types";
+import { useSelector } from "react-redux";
+import { useNewProductMutation } from "../../../redux/api/productApi";
 
 const NewProduct = () => {
+  const {user, loading} = useSelector((state: {userReducer : userReducerInitalState}) => state.userReducer); 
+
   const [name, setName] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [price, setPrice] = useState<number>(1000);
   const [stock, setStock] = useState<number>(1);
   const [photoPrev, setPhotoPrev] = useState<string>("");
   const [photo, setPhoto] = useState<File>();
-
+  const [newProduct] = useNewProductMutation();
   const changeImageHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
 
