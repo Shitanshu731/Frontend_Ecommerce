@@ -9,11 +9,11 @@ import { addToCart } from "../redux/reducer/cartReducer";
 
 
 const Home = () => {
-  const dispacth = useDispatch()
+  const dispatch = useDispatch()
   const { data,isLoading,isError } = useLatestProductQuery("");
   const addToCartHandler = (cartItem: CartItem) => {
     if(cartItem.stock< 1) return toast.error("Product Out of stock")
-    dispacth(addToCart(cartItem));
+    dispatch(addToCart(cartItem));
   };
 
   if(isError) toast.error("Cannot Fetch the Products")

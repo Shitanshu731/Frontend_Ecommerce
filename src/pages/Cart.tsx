@@ -1,15 +1,28 @@
 import { VscError } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { useEffect,useState } from "react" 
-import CartItem from "../components/cart-item";
-import { useSelector } from "react-redux";
-import { cartReducer } from "../redux/reducer/cartReducer";
+import CartItemCard from "../components/cart-item";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, cartReducer, removeCartItem } from "../redux/reducer/cartReducer";
 import { cartReducerInitalState } from "../types/reducer-types";
+import { CartItem } from "../types/types";
+import toast from "react-hot-toast";
 
 const Cart = () => {
   const {cartItems,subtotal,tax,total,shippingCharges,discount} = useSelector((state : {cartReducer : cartReducerInitalState}) => state.cartReducer)
   const[couponCode,setCouponCode] = useState<string>("");
   const [isValidCouponCode,setIsValidCouponCode] = useState<boolean>(false)
+
+  const dispatch = useDispatch()
+  const incrementHandler = (cartItem: CartItem) => {
+    dispatch(addToCart({...cartItem, quantity : cartItem.quantity +1}));
+  };
+  const decrementHandler = (cartItem: CartItem) => {
+    dispatch(addToCart({...cartItem, quantity : cartItem.quantity -1}));
+  };
+  const removeHandler = (productId:string) => {
+    dispatch(removeCartItem(productId));
+  };
 
   useEffect(() => {
     const timeOutID = setTimeout(() => {
@@ -24,7 +37,7 @@ const Cart = () => {
        <main>
         {cartItems.length > 0 ? (
           cartItems.map((i, idx) => (
-            <CartItem
+            <CartItemCard incrementHandler={incrementHandler} decrementHandler={decrementHandler} removeHandler={removeHandler}
               key={idx}
               cartItem={i}
             />
