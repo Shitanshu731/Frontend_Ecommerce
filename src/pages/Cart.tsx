@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useEffect,useState } from "react" 
 import CartItemCard from "../components/cart-item";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, cartReducer, removeCartItem } from "../redux/reducer/cartReducer";
+import { addToCart, calculatePrice, cartReducer, removeCartItem } from "../redux/reducer/cartReducer";
 import { cartReducerInitalState } from "../types/reducer-types";
 import { CartItem } from "../types/types";
 import toast from "react-hot-toast";
@@ -29,11 +29,15 @@ const Cart = () => {
   useEffect(() => {
     const timeOutID = setTimeout(() => {
     }, 1000);
+    
   return () => {
     clearTimeout(timeOutID);
     setIsValidCouponCode(false);
   };
 }, [couponCode]);
+useEffect(() => {
+   dispatch(calculatePrice());   
+},[cartItems])
  return (
     <div className="cart">
        <main>
@@ -49,14 +53,14 @@ const Cart = () => {
         )}
       </main>
       <aside>
-        <p>Subtotal: ₹12333</p>
-        <p>Shipping Charges: ₹12222</p>
-        <p>Tax: ₹123</p>
+        <p>Subtotal: ₹{subtotal}</p>
+        <p>Shipping Charges: ₹{shippingCharges}</p>
+        <p>Tax: ₹{tax}</p>
         <p>
-          Discount: <em className="red"> - ₹1234</em>
+          Discount: <em className="red"> - ₹{discount}</em>
         </p>
         <p>
-          <b>Total: ₹1234444</b>
+          <b>Total: {total}</b>
         </p>
 
         <input
