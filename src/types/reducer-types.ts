@@ -9,6 +9,7 @@ export interface cartReducerInitalState {
     cartItems : CartItem[];
     subtotal : number;
     tax : number;
+    discount: number,
     shippingCharges : number;
     total : number;
     shippingInfo : shippingInfo;

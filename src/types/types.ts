@@ -28,5 +28,5 @@ export type shippingInfo = {
     city : string;
     state : string;
     country : string;
-    pinCode : number;
+    pinCode : string;
 }
