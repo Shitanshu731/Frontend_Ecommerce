@@ -15,3 +15,18 @@ export interface Product {
     category : string;
     _id : string;
 }
+export type CartItem =  {
+    productId : string;
+    photo : string;
+    price : number;
+    name : string;
+    quantity : number;
+    stock : number
+}
+export type shippingInfo = {
+    address : string;
+    city : string;
+    state : string;
+    country : string;
+    pinCode : number;
+}
