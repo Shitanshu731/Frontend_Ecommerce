@@ -26,6 +26,9 @@ export const cartReducer = createSlice({
     reducers : {
         addToCart : (state,action: PayloadAction<CartItem>) => {
             state.loading = true;
+            const index=  state.cartItems.findIndex((i) => i.productId === action.payload.productId);
+            if(index !== -1) state.cartItems[index] = action.payload;
+            else
             state.cartItems.push(action.payload);
             state.loading = false;
         },
