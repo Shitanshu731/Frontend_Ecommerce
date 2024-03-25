@@ -9,7 +9,7 @@ import { addToCart } from "../redux/reducer/cartReducer";
 
 
 const Home = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { data,isLoading,isError } = useLatestProductQuery("");
   const addToCartHandler = (cartItem: CartItem) => {
     if(cartItem.stock < 1) return toast.error("Product Out of stock")
