@@ -34,7 +34,7 @@ export const cartReducer = createSlice({
         },
         removeCartItem : (state,action: PayloadAction<string>) => {
             state.loading = true;
-            state.cartItems.filter((i) => i.productId !== action.payload);
+            state.cartItems = state.cartItems.filter((i) => i.productId !== action.payload);
             state.loading = false;
         }
     },
