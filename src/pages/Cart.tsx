@@ -2,8 +2,12 @@ import { VscError } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { useEffect,useState } from "react" 
 import CartItem from "../components/cart-item";
+import { useSelector } from "react-redux";
+import { cartReducer } from "../redux/reducer/cartReducer";
+import { cartReducerInitalState } from "../types/reducer-types";
 
 const Cart = () => {
+  const {cartItems,subtotal,tax,total,shippingCharges,discount} = useSelector((state : {cartReducer : cartReducerInitalState}) => state.cartReducer)
   const[couponCode,setCouponCode] = useState<string>("");
   const [isValidCouponCode,setIsValidCouponCode] = useState<boolean>(false)
 
@@ -15,18 +19,6 @@ const Cart = () => {
     setIsValidCouponCode(false);
   };
 }, [couponCode]);
-const cartItems = [
-  {
-    name : "Shitanhsu",
-    photo : "https://tse4.mm.bing.net/th?id=OIP.Xw_SPhyd8RmIlcil4VrS0AHaEK&pid=Api&P=0&h=180",
-    price : 1234,
-    stock : 12,
-    quantity : 1,
-    productId : 1
-
-  }
-]
-
  return (
     <div className="cart">
        <main>
