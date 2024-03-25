@@ -24,5 +24,10 @@ export const cartReducer = createSlice({
     name : "cartReducer",
     initialState,
     reducers : {
+        addToCart : (state,action: PayloadAction<CartItem>) => {
+            state.loading = true;
+            state.cartItems.push(action.payload);
+            state.loading = false;
+        },
     },
 })
