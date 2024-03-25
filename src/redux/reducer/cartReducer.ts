@@ -29,5 +29,12 @@ export const cartReducer = createSlice({
             state.cartItems.push(action.payload);
             state.loading = false;
         },
+        removeCartItem : (state,action: PayloadAction<string>) => {
+            state.loading = true;
+            state.cartItems.filter((i) => i.productId !== action.payload);
+            state.loading = false;
+        }
     },
 })
+
+export const {addToCart,removeCartItem} = cartReducer.actions;
