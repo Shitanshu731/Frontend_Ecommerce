@@ -15,6 +15,7 @@ const Cart = () => {
 
   const dispatch = useDispatch()
   const incrementHandler = (cartItem: CartItem) => {
+    if(cartItem.quantity >= cartItem.stock) return;
     dispatch(addToCart({...cartItem, quantity : cartItem.quantity +1}));
   };
   const decrementHandler = (cartItem: CartItem) => {
