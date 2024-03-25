@@ -12,7 +12,7 @@ const CartItem = ({
 
   return (
     <div className="cart-item">
-      <img src={photo} alt={name} />
+      <img src={`http://localhost:3000/${photo}`} alt={name} />
       <article>
         <Link to={`/product/${productId}`}>{name}</Link>
         <span>₹{price}</span>
