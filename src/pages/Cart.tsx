@@ -27,9 +27,12 @@ const Cart = () => {
   };
 
   useEffect(() => {
+    const {token, cancel} = axios.CancelToken.source(); 
     const timeOutID = setTimeout(() => {
 
-      axios.get(`http://localhost:3000/api/v1/payment/discount?code=${couponCode}`).then((res) => {
+      axios.get(`http://localhost:3000/api/v1/payment/discount?code=${couponCode}`,{
+        cancelToken : token,
+      }).then((res) => {
         dispatch(discountApplied(res.data.discount))
         dispatch(calculatePrice())
         setIsValidCouponCode(true);
@@ -41,6 +44,7 @@ const Cart = () => {
     
   return () => {
     clearTimeout(timeOutID);
+    cancel();
     setIsValidCouponCode(false);
   };
 }, [couponCode]);
