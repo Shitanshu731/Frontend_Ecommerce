@@ -1,6 +1,7 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 import { cartReducerInitalState } from "../../types/reducer-types";
 import { CartItem } from "../../types/types";
+import toast from "react-hot-toast";
 
 const initialState:cartReducerInitalState = {
     loading: false,
@@ -27,9 +28,14 @@ export const cartReducer = createSlice({
         addToCart : (state,action: PayloadAction<CartItem>) => {
             state.loading = true;
             const index=  state.cartItems.findIndex((i) => i.productId === action.payload.productId);
-            if(index !== -1) state.cartItems[index] = action.payload;
-            else
+            if(index !== -1) {
+                state.cartItems[index] = action.payload;
+                toast.success("Item is already added")
+            }
+            else{
             state.cartItems.push(action.payload);
+            toast.success("Item Added to Cart")
+            }
             state.loading = false;
         },
         removeCartItem : (state,action: PayloadAction<string>) => {
