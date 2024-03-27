@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useEffect,useState } from "react" 
 import CartItemCard from "../components/cart-item";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, calculatePrice, cartReducer, removeCartItem } from "../redux/reducer/cartReducer";
+import { addToCart, calculatePrice, cartReducer, discountApplied, removeCartItem } from "../redux/reducer/cartReducer";
 import { cartReducerInitalState } from "../types/reducer-types";
 import { CartItem } from "../types/types";
-import toast from "react-hot-toast";
+import axios from "axios";
 
 const Cart = () => {
   const {cartItems,subtotal,tax,total,shippingCharges,discount} = useSelector((state : {cartReducer : cartReducerInitalState}) => state.cartReducer)
@@ -28,6 +28,15 @@ const Cart = () => {
 
   useEffect(() => {
     const timeOutID = setTimeout(() => {
+
+      axios.get(`http://localhost:3000/api/v1/payment/discount?code=${couponCode}`).then((res) => {
+        dispatch(discountApplied(res.data.discount))
+        dispatch(calculatePrice())
+        setIsValidCouponCode(true);
+      }).catch(() => {
+        dispatch(discountApplied(0));
+        setIsValidCouponCode(false);
+      })
     }, 1000);
     
   return () => {
@@ -73,7 +82,7 @@ useEffect(() => {
         {couponCode &&
           (isValidCouponCode ? (
             <span className="green">
-              ₹1234 off using the <code>{couponCode}</code>
+              {discount} off using the <code>{couponCode}</code>
             </span>
           ) : (
             <span className="red">
