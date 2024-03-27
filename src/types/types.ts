@@ -30,3 +30,19 @@ export type shippingInfo = {
     country : string;
     pinCode : string;
 }
+export type OrderItem = Omit<CartItem,"stock"> & {_id:string}
+
+export interface order {
+    orderItems : OrderItem[];
+    shippingInfo : shippingInfo;
+    subtotal : number;
+    shippingCharges : number;
+    tax : number;
+    discount : number;
+    total  : number;
+    user: {
+        name:  string,
+        _id : string
+    };
+    _id : string;
+}

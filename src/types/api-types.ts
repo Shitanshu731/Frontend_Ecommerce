@@ -1,4 +1,4 @@
-import { Product, User } from "./types";
+import { CartItem, Product, User, order, shippingInfo } from "./types";
 
 export type MessageResponse = {
     success : boolean;
@@ -38,4 +38,18 @@ export type AllProductResponse = {
   export type newProductRequest = {
     id : string;
     formData : FormData;
+  };
+  export type NewOrderRequest = {
+    shippingInfo : shippingInfo;
+    orderItems : CartItem[];
+    subtotal : number;
+    tax : number;
+    discount : number;
+    total  : number;
+    user : string;
+
+  }
+  export type AllOrdersResponse = {
+    success: boolean;
+    order: order[];
   };
