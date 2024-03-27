@@ -4,6 +4,7 @@ import {
   MessageResponse,
   NewOrderRequest,
   orderDetailsResponse,
+  updateOrderRequest,
 } from "../../types/api-types";
 
 export const orderApi = createApi({
@@ -18,6 +19,13 @@ export const orderApi = createApi({
         url: "new",
         method: "POST",
         body: order,
+      }),
+      invalidatesTags: ["orders"],
+    }),
+    updateOrder: builder.mutation<MessageResponse,updateOrderRequest>({
+      query: ({userId,orderId}) => ({
+        url: `${orderId}?id=${userId}`,
+        method: "PUT",
       }),
       invalidatesTags: ["orders"],
     }),
@@ -37,5 +45,5 @@ export const orderApi = createApi({
 });
 
 export const {
-  useNewOrderMutation,useAllOrdersQuery,useMyOrdersQuery
+  useNewOrderMutation,useAllOrdersQuery,useMyOrdersQuery,useOrderDetailsQuery,useUpdateOrderMutation
 } = orderApi;

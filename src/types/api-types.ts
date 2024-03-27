@@ -49,6 +49,10 @@ export type AllProductResponse = {
     user : string;
 
   }
+  export type updateOrderRequest = {
+    userId : string;
+    orderId : string;
+  }
   export type AllOrdersResponse = {
     success: boolean;
     order: order[];
