@@ -53,3 +53,7 @@ export type AllProductResponse = {
     success: boolean;
     order: order[];
   };
+  export type orderDetailsResponse = {
+    success: boolean;
+    order: order;
+  };
