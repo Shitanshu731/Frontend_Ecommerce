@@ -40,6 +40,7 @@ export interface order {
     tax : number;
     discount : number;
     total  : number;
+    status : string;
     user: {
         name:  string,
         _id : string

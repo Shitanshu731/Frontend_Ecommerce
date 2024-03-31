@@ -1,7 +1,12 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Column } from "react-table";
 import TableHOC from "../components/admin/TableHOC";
-import { Link } from "react-router-dom";
+import { CustomError } from "../types/api-types";
+import { useMyOrdersQuery } from "../redux/api/orderApi";
+import { userReducerInitalState } from "../types/reducer-types";
 
 type DataType = {
   _id: string;
@@ -40,16 +45,42 @@ const column: Column<DataType>[] = [
 ];
 
 const Orders = () => {
-    const [rows] = useState<DataType[]>([
-        {
-            _id: "sdfsdfsf",
-            amount: 3434,
-            quantity: 343434,
-            discount: 43434,
-            status: <span className="text-red-400">Processing</span>,
-            action: <Link to ={`/order/id`}>view</Link>,
-        }
-    ])
+  const {user} = useSelector((state: {userReducer : userReducerInitalState}) => state.userReducer);
+
+  const { isLoading, data, isError, error } = useMyOrdersQuery(user?._id as string);
+
+  const [rows, setRows] = useState<DataType[]>([]);
+
+  if (isError) {
+    const err = error as CustomError;
+    toast.error(err.data.message);
+  }
+
+  useEffect(() => {
+    if (data)
+      setRows(
+        data.order.map((i) => ({
+          _id: i._id,
+          amount: i.total,
+          discount: i.discount,
+          quantity: i.orderItems.length,
+          status: (
+            <span
+              className={
+                i.status === "Processing"
+                  ? "red"
+                  : i.status === "Shipped"
+                  ? "green"
+                  : "purple"
+              }
+            >
+              {i.status}
+            </span>
+          ),
+          action: <Link to={`/admin/transaction/${i._id}`}>Manage</Link>,
+        }))
+      );
+  }, [data]);
 
   const Table = TableHOC<DataType>(
     column,
@@ -61,7 +92,7 @@ const Orders = () => {
   return (
     <div className="container">
       <h1>My Orders</h1>
-      {Table}
+      {isLoading ? "Loading..." : Table}
     </div>
   );
 };
