@@ -39,9 +39,12 @@ const CheckOutForm = () => {
     )
 }
 const Checkout = () => {
+    const location = useLocation();
+    const clientSecret:string | undefined = location.state;
+    if(!clientSecret) return <Navigate to={"/shipping"}/>
   return <Elements 
   options={{
-    clientSecret : import.meta.env.VITE_CLIENT_SECRET,
+    clientSecret,
   }}
   stripe={stripePromise}>
     <CheckOutForm />
