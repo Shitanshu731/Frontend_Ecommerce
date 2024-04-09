@@ -65,3 +65,8 @@ export type AllProductResponse = {
     userId: string;
     adminUserId: string;
   };
+  export type AllUsersResponse = {
+    success: boolean;
+    users: User[];
+  };
+  

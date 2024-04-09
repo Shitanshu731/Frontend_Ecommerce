@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from  "@reduxjs/toolkit/query/react"
 // import { server } from "../store"
-import { DeleteUserRequest, MessageResponse, UserResponse } from "../../types/api-types"
+import { AllUsersResponse, DeleteUserRequest, MessageResponse, UserResponse } from "../../types/api-types"
 import { User } from "../../types/types"
 import axios from "axios"
 
@@ -23,6 +23,10 @@ export const userAPI = createApi({
           method: "DELETE",
         }),
         invalidatesTags: ["users"],
+      }),
+    allUsers: builder.query<AllUsersResponse, string>({
+        query: (id) => `all?id=${id}`,
+        providesTags: ["users"],
       }),
     })
 })
