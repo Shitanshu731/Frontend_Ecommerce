@@ -11,7 +11,6 @@ import { userExists, userNotExists } from './redux/reducer/userReducer'
 import { auth } from './firebase'
 import { userReducerInitalState } from './types/reducer-types'
 import ProtectedRoute from './components/protected-route'
-
 const Home = lazy(() => import("./pages/Home"))
 const Search = lazy(() => import("./pages/Search"))
 const Cart = lazy(() => import("./pages/Cart"))
