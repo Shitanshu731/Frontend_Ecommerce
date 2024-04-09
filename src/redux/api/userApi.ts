@@ -39,4 +39,4 @@ export const getUser = async (id: string) => {
       return data;
   };
 
-export const {useLoginMutation} = userAPI 
+export const {useLoginMutation, useAllUsersQuery, useDeleteUserMutation} = userAPI 
