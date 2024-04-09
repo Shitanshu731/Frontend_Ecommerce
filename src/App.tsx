@@ -19,6 +19,7 @@ const Shipping = lazy(() => import("./pages/shipping"))
 const Login = lazy(() => import("./pages/login"))
 const Orders = lazy(() => import("./pages/orders"))
 const NotFound = lazy(() => import("./pages/not-found"));
+const Checkout = lazy(() => import('./pages/checkout'));
 
 
 // AdminBoard Routes importng
@@ -72,6 +73,7 @@ const dispatch = useDispatch();
         <Route path = "/shipping" element ={<Shipping />} />
         
         <Route path = "/orders" element ={<Orders />} />
+        <Route path = "/pay" element ={<Checkout />} />
         </Route>
 
         {/* Admin Routes */}
