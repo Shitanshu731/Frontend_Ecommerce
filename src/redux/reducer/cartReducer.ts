@@ -1,6 +1,6 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 import { cartReducerInitalState } from "../../types/reducer-types";
-import { CartItem } from "../../types/types";
+import { CartItem, shippingInfo } from "../../types/types";
 import toast from "react-hot-toast";
 
 const initialState:cartReducerInitalState = {
@@ -52,8 +52,12 @@ export const cartReducer = createSlice({
         },
         discountApplied : (state, action : PayloadAction<number>) => {
             state.discount = action.payload;
-        }
+        },
+        saveShippingInfo : (state,action : PayloadAction<shippingInfo>) => {
+            state.shippingInfo = action.payload
+        },
+        resetCart : () => initialState,
     },
 })
 
-export const {addToCart,removeCartItem,calculatePrice,discountApplied} = cartReducer.actions;
+export const {addToCart,removeCartItem,calculatePrice,discountApplied,saveShippingInfo,resetCart} = cartReducer.actions;
