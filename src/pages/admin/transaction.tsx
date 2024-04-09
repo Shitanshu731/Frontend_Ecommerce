@@ -1,13 +1,13 @@
 import { ReactElement, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Column } from "react-table";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import TableHOC from "../../components/admin/TableHOC";
-import { useSelector } from "react-redux";
-import { userReducerInitalState } from "../../types/reducer-types";
-import { useAllOrdersQuery } from "../../redux/api/orderApi";
-import toast from "react-hot-toast";
+import { RootState } from "../../redux/store";
 import { CustomError } from "../../types/api-types";
+import { useAllOrdersQuery } from "../../redux/api/orderApi";
 
 interface DataType {
   user: string;
@@ -17,8 +17,6 @@ interface DataType {
   status: ReactElement;
   action: ReactElement;
 }
-
-
 
 const columns: Column<DataType>[] = [
   {
@@ -48,32 +46,43 @@ const columns: Column<DataType>[] = [
 ];
 
 const Transaction = () => {
-  const {user} = useSelector((state: {userReducer : userReducerInitalState}) => state.userReducer);
-  const {isLoading,isError,data,error } = useAllOrdersQuery(user?._id as string)
+  const { user } = useSelector((state: RootState) => state.userReducer);
+
+  const { isLoading, data, isError, error } = useAllOrdersQuery(user?._id as string);
+
   const [rows, setRows] = useState<DataType[]>([]);
+
   if (isError) {
     const err = error as CustomError;
     toast.error(err.data.message);
   }
+
   useEffect(() => {
-    if(data)
+    if (data)
       setRows(
         data.order.map((i) => ({
-          user : i.user.name,
-          amount : i.total,
-          discount : i.discount,
-          quantity : i.orderItems.length,
-          status : <span  className={
-            i.status === "Processing"
-              ? "red"
-              : i.status === "Shipped"
-              ? "green"
-              : "purple"
-          }>{i.status}</span>,
-          action : <Link to ={`/admin/transaction/${i._id}`} >Manage</Link>
-    })))
+          user: i.user.name,
+          amount: i.total,
+          discount: i.discount,
+          quantity: i.orderItems.length,
+          status: (
+            <span
+              className={
+                i.status === "Processing"
+                  ? "red"
+                  : i.status === "Shipped"
+                  ? "green"
+                  : "purple"
+              }
+            >
+              {i.status}
+            </span>
+          ),
+          action: <Link to={`/admin/transaction/${i._id}`}>Manage</Link>,
+        }))
+      );
+  }, [data]);
 
-  },[data])
   const Table = TableHOC<DataType>(
     columns,
     rows,
@@ -84,7 +93,7 @@ const Transaction = () => {
   return (
     <div className="admin-container">
       <AdminSidebar />
-      <main>{isLoading ? "Loading" : Table}</main>
+      <main>{isLoading ? "Loading..." : Table}</main>
     </div>
   );
 };

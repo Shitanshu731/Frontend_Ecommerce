@@ -1,13 +1,12 @@
 import {createApi, fetchBaseQuery} from  "@reduxjs/toolkit/query/react"
-// import { server } from "../store"
 import { AllUsersResponse, DeleteUserRequest, MessageResponse, UserResponse } from "../../types/api-types"
 import { User } from "../../types/types"
 import axios from "axios"
 
-
+const server = import.meta.env.VITE_SERVER
 export const userAPI = createApi({
     reducerPath : "userApi",
-    baseQuery : fetchBaseQuery({baseUrl :`http://localhost:3000/api/v1/user/`}),
+    baseQuery : fetchBaseQuery({baseUrl :`${server}/api/v1/user/`}),
     tagTypes: ["users"],
     endpoints : (builder) => ({
         login : builder.mutation<MessageResponse, User>({
@@ -25,7 +24,7 @@ export const userAPI = createApi({
         invalidatesTags: ["users"],
       }),
     allUsers: builder.query<AllUsersResponse, string>({
-        query: (id) => `all?id=${id}`,
+        query: (id) => `allUsers?id=${id}`,
         providesTags: ["users"],
       }),
     })
@@ -33,7 +32,7 @@ export const userAPI = createApi({
 
 export const getUser = async (id: string) => {
       const { data }: { data: UserResponse } = await axios.get(
-        `http://localhost:3000/api/v1/user/${id}`
+        `${server}/api/v1/user/${id}`
       );
   
       return data;
