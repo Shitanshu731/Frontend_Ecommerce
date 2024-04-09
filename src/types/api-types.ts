@@ -61,3 +61,7 @@ export type AllProductResponse = {
     success: boolean;
     order: order;
   };
+  export type DeleteUserRequest = {
+    userId: string;
+    adminUserId: string;
+  };
