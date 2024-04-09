@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { FormEvent, useEffect } from 'react'
 import { ChangeEvent, useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { cartReducerInitalState } from '../types/reducer-types';
+import axios from 'axios';
 
 const Shipping = () => {
-  const {cartItems} = useSelector((state : {cartReducer : cartReducerInitalState}) => state.cartReducer)
-
+  const {cartItems, total} = useSelector((state : {cartReducer : cartReducerInitalState}) => state.cartReducer)
+  const server = import.meta.env.VITE_SERVER;
   const navigate = useNavigate();
   const [shippingInfo, setShippingInfo] = useState({
     address: "",
@@ -18,7 +19,23 @@ const Shipping = () => {
   });
 
   const changeHandler = (e : ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {setShippingInfo((prev) => ({...prev,[e.target.value] : e.target.value}))};
-  const submitHandler = async () => {};
+  const submitHandler = async (e:FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try{
+      const {data} = await axios.post(`${server}/api/v1/payment/create`,{
+        amount : total,
+      },{
+        headers : {
+          "Content-Type" : "application/json",
+        },
+      })
+      navigate("/pay",{
+        state: data.clientSecret
+      })
+    }catch(e){
+      console.error(e.error)
+    }
+  };
   useEffect(() => {
     if(cartItems.length <= 0) return navigate("/cart")
   },[cartItems])
