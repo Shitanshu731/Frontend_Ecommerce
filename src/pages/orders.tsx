@@ -4,9 +4,11 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Column } from "react-table";
 import TableHOC from "../components/admin/TableHOC";
+
+
+import { RootState } from "../redux/store";
 import { CustomError } from "../types/api-types";
 import { useMyOrdersQuery } from "../redux/api/orderApi";
-import { userReducerInitalState } from "../types/reducer-types";
 
 type DataType = {
   _id: string;
@@ -45,12 +47,12 @@ const column: Column<DataType>[] = [
 ];
 
 const Orders = () => {
-  const {user} = useSelector((state: {userReducer : userReducerInitalState}) => state.userReducer);
+  const { user } = useSelector((state: RootState) => state.userReducer);
 
   const { isLoading, data, isError, error } = useMyOrdersQuery(user?._id as string);
 
   const [rows, setRows] = useState<DataType[]>([]);
-
+  console.log(data?.success)
   if (isError) {
     const err = error as CustomError;
     toast.error(err.data.message);
@@ -92,7 +94,7 @@ const Orders = () => {
   return (
     <div className="container">
       <h1>My Orders</h1>
-      {isLoading ? "Loading..." : Table}
+      {isLoading ? "<Skeleton length={20} />" : Table}
     </div>
   );
 };

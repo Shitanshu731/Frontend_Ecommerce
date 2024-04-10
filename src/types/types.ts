@@ -48,7 +48,7 @@ export interface order {
     _id : string;
 }
 type CountandChange = {
-    Revenue: string | number;
+    revenue: string | number;
     product: string | number;
     order: string | number;
     user: string | number;
@@ -67,12 +67,55 @@ export type stats = {
     percentChange : CountandChange;
     count : CountandChange;
     charts: {
-      orderMonthCounts,
-      orderMonthlyRevenue,
+        order: number[];
+        revenue: number[];
     };
     userRatio : {
         male : number,
         female : number
     };
     latestTransaction : latestTransaction[];
+  };
+  type OrderFullfillment = {
+    processing: number;
+    shipped: number;
+    delivered: number;
+  };
+  
+  type RevenueDistribution = {
+    netMargin: number;
+    discount: number;
+    productionCost: number;
+    burnt: number;
+    marketingCost: number;
+  };
+  export type Pie = {
+    orderFullfillment: OrderFullfillment;
+    productCategories: Record<string, number>[];
+    stockAvailablity: {
+      inStock: number;
+      outOfStock: number;
+    };
+    revenueDistribution: RevenueDistribution;
+    usersAgeGroup: UsersAgeGroup;
+    adminCustomer: {
+      admin: number;
+      customer: number;
+    };
+  };
+  type UsersAgeGroup = {
+    teen: number;
+    adult: number;
+    old: number;
+  };
+  export type Bar = {
+    users: number[];
+    products: number[];
+    orders: number[];
+  };
+  export type Line = {
+    users: number[];
+    products: number[];
+    discount: number[];
+    revenue: number[];
   };
