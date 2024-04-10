@@ -1,9 +1,12 @@
-import { CreateApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
 
 export const dashboardApi = createApi({
     reducerPath : "dashboardApi",
     baseQuery : fetchBaseQuery({
-        stats : buildCreateApi.query<string, string>({
+        baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/dashboard`,
+    }),
+    endpoints : (builder) => ({
+        stats : builder.query<string, string>({
             query : (id) => `stats?id=${id}`,
         }),
     })
