@@ -15,6 +15,9 @@ export const dashboardApi = createApi({
         bar : builder.query<string, string>({
             query : (id) => `bar?id=${id}`,
         }),
+        line : builder.query<string, string>({
+            query : (id) => `line?id=${id}`,
+        }),
     })
 })
 
