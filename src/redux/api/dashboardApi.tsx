@@ -9,6 +9,9 @@ export const dashboardApi = createApi({
         stats : builder.query<string, string>({
             query : (id) => `stats?id=${id}`,
         }),
+        pie : builder.query<string, string>({
+            query : (id) => `pie?id=${id}`,
+        }),
     })
 })
 
