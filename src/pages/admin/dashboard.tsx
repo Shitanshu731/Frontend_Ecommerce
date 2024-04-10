@@ -6,10 +6,18 @@ import AdminSidebar from "../../components/admin/AdminSidebar";
 import { BarChart, DoughnutChart } from "../../components/admin/Charts";
 import Table from "../../components/admin/DashboardTable";
 import data from "../../assets/data.json"
+import { useSelector } from "react-redux";
+import { useStatsQuery } from "../../redux/api/dashboardApi";
 const userImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp";
 
 const Dashboard = () => {
+
+  const {user} = useSelector((state:RootState) => state.userReducer);
+
+  const {isLoading, data, error, isError} = useStatsQuery(user?._id as string);
+
+  const stats = data?.stats as string;
   return (
     <div className="admin-container">
       <AdminSidebar />
