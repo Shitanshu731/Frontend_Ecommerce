@@ -1,4 +1,4 @@
-import { CartItem, Product, User, order, shippingInfo } from "./types";
+import { CartItem, Product, User, order, shippingInfo, stats } from "./types";
 
 export type MessageResponse = {
     success : boolean;
@@ -23,6 +23,11 @@ export type AllProductResponse = {
     success: boolean;
     category: [];
   };
+  export type StatsResponse = {
+    success: boolean;
+    stats : stats;
+  };
+
   export type searchProductResponse = {
     success: boolean;
     products: Product[];

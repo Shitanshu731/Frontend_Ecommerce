@@ -47,3 +47,32 @@ export interface order {
     };
     _id : string;
 }
+type CountandChange = {
+    Revenue: string | number;
+    product: string | number;
+    order: string | number;
+    user: string | number;
+}
+
+type latestTransaction = {
+    _id : string;
+    amount : number;
+    quantity : number;
+    discount : number;
+    status : string;
+
+}
+export type stats = {
+    categoryCount : Record<string, number>[];
+    percentChange : CountandChange;
+    count : CountandChange;
+    charts: {
+      orderMonthCounts,
+      orderMonthlyRevenue,
+    };
+    userRatio : {
+        male : number,
+        female : number
+    };
+    latestTransaction : latestTransaction[];
+  };
